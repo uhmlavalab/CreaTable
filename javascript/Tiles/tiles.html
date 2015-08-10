@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8" />
+    <title>Tiles</title>
+    <!-- Important style. Remove this only under conditions when you understand why. -->
+    <style> 
+    html *
+    {
+       font-family: Arial;
+    }
+    </style>
+</head>
+<body>
+    <div id='topDiv'>
+    </div>
+    <div id='infoDiv'>
+    </div>
+</body>
+
+<script type="text/javascript">
+
+var allTiles = [];
+var allInfoPanes = [];
+var widthInTiles = 50;
+var heightInTiles = 50;
+
+var tWidthStart = 100;
+var tHeightStart = 100;
+
+var tWidthCurrent = tWidthStart;
+var tHeightCurrent = tHeightStart;
+var tXstarter = 0;
+var tYStarter = 0;
+
+createAllTiles();
+
+document.addEventListener( 'keydown', handleKeyDown, false );
+
+
+
+
+function createAllTiles() {
+    var t;
+    var topDiv = document.getElementById('topDiv');
+    var intext;
+    topDiv.style.position = 'absolute';
+    topDiv.style.top = '0px';
+    topDiv.style.left = '0px';
+
+    for(var h = 0; h < heightInTiles; h++) {
+        for(var w = 0; w < widthInTiles; w++) {
+            t = document.createElement('div');
+
+            t.style.position = 'absolute';
+            t.style.width = tWidthStart + 'px';
+            t.style.height = tHeightStart + 'px';
+            t.style.top = (tHeightStart * h) + 'px';
+            t.style.left = (tWidthStart * w) + 'px';
+            t.style.border = '1px solid black';
+            t.addEventListener('mousedown', moveInfoPane, false);
+            //will also need touchstart
+
+            topDiv.appendChild(t);
+            allTiles.push(t);
+        }
+    }
+
+    var infoDiv = document.getElementById('infoDiv');
+    infoDiv.style.position = 'absolute';
+    infoDiv.style.top = '0px';
+    infoDiv.style.left = '0px';
+
+    var tw = parseInt(window.innerWidth * 0.05);
+    var th = parseInt(window.innerHeight * 0.05);
+    var sq;
+
+    for(var i = 0; i < 10; i++) {
+        t = document.createElement('div');
+        t.style.position = 'absolute';
+        t.style.border = '5px solid black';
+
+        intext = "<div style='position:absolute;width:"+tw+"px;height:"+th+"px;top:"+0+"px;left:"+0+"px;background:#FFFFFF' onmousedown='infoPanePress("+i+", 1)'></div>"
+            + "<div style='position:absolute;width:"+tw+"px;height:"+th+"px;top:"+0+"px;left:"+tw+"px;background:#000000' onmousedown='infoPanePress("+i+", 2)'></div>"
+            + "<div style='position:absolute;width:"+tw+"px;height:"+th+"px;top:"+(th)+"px;left:"+0+"px;background:#FF530D' onmousedown='infoPanePress("+i+", 3)'></div>"
+            + "<div style='position:absolute;width:"+tw+"px;height:"+th+"px;top:"+(th)+"px;left:"+tw+"px;background:#1CE802' onmousedown='infoPanePress("+i+", 4)'></div>"
+            + "<div style='position:absolute;width:"+tw+"px;height:"+th+"px;top:"+(th*2)+"px;left:"+0+"px;background:#FFEC15' onmousedown='infoPanePress("+i+", 5)'></div>"
+            + "<div style='position:absolute;width:"+tw+"px;height:"+th+"px;top:"+(th*2)+"px;left:"+tw+"px;background:#3339FF' onmousedown='infoPanePress("+i+", 6)'></div>"
+            ;
+
+        t.innerHTML = intext;
+        t.style.left = '-1000px';
+
+        allInfoPanes.push(t);
+        infoDiv.appendChild(t);
+    }
+
+
+} //end createAllTiles
+
+function handleKeyDown(e) {
+    switch(e.keyCode) {
+        case 87: //w
+            shiftTiles('up');
+            break;
+        case 65: //a
+            shiftTiles('left');
+            break;
+        case 83: //s
+            shiftTiles('down');
+            break;
+        case 68: //d
+            shiftTiles('right');
+            break;
+        case 82: //r
+            zoomTiles('increase');
+            break;
+        case 70: //f
+            zoomTiles('decrease');
+            break;
+        default:
+            break;
+    } //end switch
+} //end handleKeyDown
+
+
+function shiftTiles(dir) {
+    var xmod = 0;
+    var ymod = 0;
+
+    switch(dir) {
+        case 'up':
+            ymod = tHeightCurrent * -1;
+            break;
+        case 'down':
+            ymod = tHeightCurrent;
+            break;
+        case 'left':
+            xmod = tWidthCurrent * -1;
+            break;
+        case 'right':
+            xmod = tWidthCurrent;
+            break;
+    }
+    for(var i = 0; i < allTiles.length; i++) {
+        allTiles[i].style.top = parseInt(allTiles[i].style.top) + ymod + 'px';
+        allTiles[i].style.left = parseInt(allTiles[i].style.left) + xmod + 'px';
+        tXstarter += xmod;
+        tYStarter += ymod;
+    }
+} //end shiftTiles
+
+function zoomTiles(dir) {
+    var smod = 0;
+    switch(dir) {
+        case 'increase':
+            smod = 20;
+            break;
+        case 'decrease':
+            smod = -20;
+            break;
+    }
+
+    tWidthCurrent += smod;
+    tHeightCurrent += smod;
+
+    for(var h = 0; h < heightInTiles; h++) {
+        for(var w = 0; w < widthInTiles; w++) {
+
+            allTiles[w + (h * widthInTiles)].style.width = tWidthCurrent + 'px';
+            allTiles[w + (h * widthInTiles)].style.height = tHeightCurrent + 'px';
+            allTiles[w + (h * widthInTiles)].style.top = tYStarter + (tHeightCurrent * h) + 'px';
+            allTiles[w + (h * widthInTiles)].style.left = tXstarter + (tWidthCurrent * w) + 'px';
+
+        }
+    }
+
+} //end zoomTiles
+
+function infoPanePress( pane, color) {
+
+    var tileToAffect = parseInt(allInfoPanes[pane].value);
+    allInfoPanes[pane].style.left = '-1000px';
+    switch(color) {
+        case 1:
+            allTiles[tileToAffect].style.background = '#FFFFFF';
+            break;
+        case 2:
+            allTiles[tileToAffect].style.background = '#000000';
+            break;
+        case 3:
+            allTiles[tileToAffect].style.background = '#FF530D';
+            break;
+        case 4:
+            allTiles[tileToAffect].style.background = '#1CE802';
+            break;
+        case 5:
+            allTiles[tileToAffect].style.background = '#FFEC15';
+            break;
+        case 6:
+            allTiles[tileToAffect].style.background = '#3339FF';
+            break;
+    }
+
+} //end infoPanePress
+
+function moveInfoPane( e ) {
+    var rect = {};
+
+    for(var i = 0; i < allTiles.length; i++) {
+
+        rect.left = parseInt( allTiles[i].style.left );
+        rect.top = parseInt( allTiles[i].style.top );
+        rect.width = parseInt( allTiles[i].style.width );
+        rect.height = parseInt( allTiles[i].style.height );
+
+        if( isPointInRect( e, rect ) ) {
+            findAndMoveInfoPane(e, i);
+        }
+
+    }
+
+} //end moveInfoPane
+
+function isPointInRect( p, rect) {
+    var px = parseInt( p.pageX );
+    var py = parseInt( p.pageY );
+
+    if(
+        px >= rect.left &&
+        px <= (rect.left + rect.width) &&
+        py >= rect.top &&
+        py <= (rect.top + rect.height)
+    ) {
+        return true;
+    }
+    return false;
+} //end isPointInRect
+
+function findAndMoveInfoPane(e, tile) {
+    for(var i = 0; i < allInfoPanes.length; i++) {
+        if( parseInt(allInfoPanes[i].style.left) == -1000 ) {
+            allInfoPanes[i].style.left = e.pageX + 'px';
+            allInfoPanes[i].style.top = e.pageY + 'px';
+            allInfoPanes[i].value = tile;
+            break;
+        }
+    }
+
+}
+
+
+</script>
+
+
+
+</html>

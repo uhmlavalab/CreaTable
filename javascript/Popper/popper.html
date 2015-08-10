@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8" />
+    <title>Popper</title>
+    <!-- Important style. Remove this only under conditions when you understand why. -->
+    <style> 
+    html *
+    {
+       font-family: Arial;
+    }
+    </style>
+</head>
+<body>
+    <div id='topDiv'>
+    </div>
+    <div id='popDiv'>
+    </div>
+</body>
+
+<script type="text/javascript">
+
+var allPops = [];
+var minWidth = window.innerWidth * 0.05;
+var minHeight = window.innerHeight * 0.05;
+var maxWidth = minWidth * 4;
+var maxHeight = minHeight * 4;
+
+var chanceToSpawn = 0.1; //over 10 activations per second is roughly 1 per second.
+var maxAmountOfPops = 50;
+
+var score = 0; 
+var timeLeft = 30; //reduced by each.
+var timeLeftMS = 30000;
+
+
+setupDivsToBeUsed();
+
+var muID = setInterval( mainUpdater, 100 ); //every 10th of a second
+document.addEventListener( 'mousedown', handleMouseDown, false );
+document.getElementById('topDiv').addEventListener( 'touchstart', handleTouchStart, false );
+document.getElementById('topDiv').addEventListener( 'touchmove', handleTouchMove, false );
+document.getElementById('topDiv').addEventListener( 'touchend', handleTouchEnd, false );
+
+
+
+
+
+function mainUpdater() {
+    //first check currently active pops.
+    var amountOfActive = getAmountOfActivePops();
+
+    //for each reduce time by 1
+    timeLeftMS -= 100;
+    timeLeftMS -= amountOfActive * 2;
+    timeLeft = parseInt( timeLeftMS / 1000 );
+
+
+    //then randomly create a pop
+    if(amountOfActive < 3 || Math.random() < chanceToSpawn ) {
+
+        var tobeActive = getInactivePop();
+        if(tobeActive !== null) {
+            //first randomize the width and height;
+            tobeActive.style.width =
+                parseInt(Math.random() * maxWidth + minWidth)
+                + 'px';
+            tobeActive.style.height =
+                parseInt(Math.random() * maxHeight + minHeight)
+                + 'px';
+
+            tobeActive.style.top =
+                parseInt( Math.random() * ( window.innerHeight - parseInt(tobeActive.style.height)) )
+                + 'px';
+            tobeActive.style.left =
+                parseInt( Math.random() * ( window.innerWidth - parseInt(tobeActive.style.width)) )
+                + 'px';
+
+            tobeActive.style.backgroundColor = getRandomColorHash();
+        }//end not null
+    } //end setting new pop
+
+
+    //update the time
+    document.getElementById('topDiv').innerHTML = 'Time: ' + timeLeft + '<br>Score: ' + score;
+    if(timeLeft <= 0) {
+        timeLeft = 0;
+
+        for(var i = 0; i < allPops.length; i++) {
+            allPops[i].style.left = '-100px';
+            allPops[i].style.top = '-100px';
+            allPops[i].style.width = '1px';
+            allPops[i].style.height = '1px';
+
+        }
+
+        document.getElementById('topDiv').innerHTML = "Time's Up! <br>Final Score: " + score;
+        clearInterval(muID);
+    }
+
+
+} //end mainUpdater
+
+
+function setupDivsToBeUsed() {
+
+    var nDiv;
+    var popDiv;
+    var topDiv;
+
+    topDiv = document.getElementById('topDiv');
+
+    topDiv.style.position = 'absolute';
+    topDiv.style.fontSize = minWidth + 'px';
+    topDiv.style.top = '10px';
+    topDiv.style.left = '10px';
+    topDiv.innerHTML = 'Time: ' + timeLeft + '<br>Score: ' + score;
+
+    popDiv = document.getElementById('popDiv');
+    popDiv.style.position = 'absolute';
+
+    for(var i = 0; i < maxAmountOfPops; i++) {
+        nDiv = document.createElement('div');
+
+        nDiv.style.position = 'absolute';
+        nDiv.style.top = '-100px';
+        nDiv.style.left = '-100px';
+        nDiv.style.width = '2px';
+        nDiv.style.height = '2px';
+        nDiv.style.border = '1px solid black';
+
+        popDiv.appendChild(nDiv);
+        allPops.push(nDiv);
+    }
+
+} //end setupDivsToBeUsed
+
+function getAmountOfActivePops() {
+    var amountOfActive = 0;
+    for(var i = 0; i < allPops.length; i++) {
+        if ( parseInt( allPops[i].style.top ) >= 0 ) {
+            amountOfActive++;
+        }
+    }
+
+    return amountOfActive;
+} //end getActivePops
+
+
+function getInactivePop() {
+    for(var i = 0; i < allPops.length; i++) {
+        if ( parseInt( allPops[i].style.top ) < 0 ) {
+            return allPops[i];
+        }
+    }
+    return null;
+} //end getInactivePop
+
+function getRandomColorHash() {
+    var colorHash = '#';
+    var r;
+    for(var i = 0; i < 6; i++) {
+        r = parseInt( Math.random() * 16 );
+        r++; //r is now 
+        if(r == 10) { r = 'A'; }
+        if(r == 11) { r = 'B'; }
+        if(r == 12) { r = 'C'; }
+        if(r == 13) { r = 'D'; }
+        if(r == 14) { r = 'E'; }
+        if(r == 15) { r = 'F'; }
+        colorHash += r;
+    }
+    return colorHash;
+} //end getInactivePop
+
+/**
+Really this can be called so long as e has pageX and pageY.
+*/
+function handleMouseDown(e) {
+    var rect = {};
+
+    for(var i = 0; i < allPops.length; i++) {
+        if ( parseInt( allPops[i].style.top ) >= 0 ) {
+
+            rect.top = parseInt( allPops[i].style.top );
+            rect.left = parseInt( allPops[i].style.left );
+            rect.width = parseInt( allPops[i].style.width );
+            rect.height = parseInt( allPops[i].style.height );
+
+
+            if( isPointInRect( e, rect ) ) {
+                score++;
+                allPops[i].style.left = '-100px';
+                allPops[i].style.top = '-100px';
+                allPops[i].style.width = '1px';
+                allPops[i].style.height = '1px';
+
+                document.getElementById('topDiv').innerHTML = 'Time: ' + timeLeft + '<br>Score: ' + score;
+
+            }
+        }
+    }
+} //end handleMouseDown
+
+
+function isPointInRect( p, rect) {
+    var px = parseInt( p.pageX );
+    var py = parseInt( p.pageY );
+
+    if(
+        px >= rect.left &&
+        px <= (rect.left + rect.width) &&
+        py >= rect.top &&
+        py <= (rect.top + rect.height)
+    ) {
+        return true;
+    }
+    return false;
+} //end isPointInRect
+
+
+
+
+function handleTouchStart(evt) {
+    evt.preventDefault();
+    var touches = evt.changedTouches;  
+
+    for (var i = 0; i < touches.length; i++) {
+        handleMouseDown(touches[i]);
+    }
+} //handleTouchStart
+
+function handleTouchMove(evt) {
+    evt.preventDefault();
+    var touches = evt.changedTouches;
+
+    for (var i = 0; i < touches.length; i++) {
+        handleMouseDown(touches[i]);
+    }
+} //end handleTouchMove
+function handleTouchEnd(evt) {
+    evt.preventDefault();
+    var touches = evt.changedTouches;
+
+    for (var i = 0; i < touches.length; i++) {
+        handleMouseDown(touches[i]);
+    }
+} //handleTouchEnd
+
+
+</script>
+
+
+
+</html>
