@@ -10,6 +10,7 @@
        font-family: Arial;
     }
     </style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/> 
 </head>
 <body>
     <div id='topDiv'>
@@ -22,11 +23,11 @@
 
 var allTiles = [];
 var allInfoPanes = [];
-var widthInTiles = 50;
-var heightInTiles = 50;
+var widthInTiles = 53;
+var heightInTiles = 29;
 
-var tWidthStart = 100;
-var tHeightStart = 100;
+var tWidthStart = 29;
+var tHeightStart = 29;
 
 var tWidthCurrent = tWidthStart;
 var tHeightCurrent = tHeightStart;
@@ -36,6 +37,8 @@ var tYStarter = 0;
 createAllTiles();
 
 document.addEventListener( 'keydown', handleKeyDown, false );
+window.addEventListener( 'contextmenu', function(e) { e.preventDefault(); }  );
+window.addEventListener( 'mousewheel', function(e) { e.preventDefault(); });
 
 
 
