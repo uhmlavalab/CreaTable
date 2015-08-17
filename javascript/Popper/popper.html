@@ -10,8 +10,7 @@
        font-family: Arial;
     }
     </style>
-    <head>
-<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/> 
 </head>
 <body>
     <div id='topDiv'>
@@ -40,11 +39,12 @@ setupDivsToBeUsed();
 
 var muID = setInterval( mainUpdater, 100 ); //every 10th of a second
 document.addEventListener( 'mousedown', handleMouseDown, false );
-document.getElementById('topDiv').addEventListener( 'touchstart', handleTouchStart, false );
-document.getElementById('topDiv').addEventListener( 'touchmove', handleTouchMove, false );
-document.getElementById('topDiv').addEventListener( 'touchend', handleTouchEnd, false );
+document.addEventListener( 'touchstart', handleTouchStart, false );
+document.addEventListener( 'touchmove', handleTouchMove, false );
+document.addEventListener( 'touchend', handleTouchEnd, false );
 
 window.addEventListener( 'contextmenu', function(e) { e.preventDefault(); }  );
+window.addEventListener( 'mousewheel', function(e) { e.preventDefault(); });
 
 
 
@@ -230,6 +230,8 @@ function handleTouchStart(evt) {
     for (var i = 0; i < touches.length; i++) {
         handleMouseDown(touches[i]);
     }
+	console.log('tstart');
+	
 } //handleTouchStart
 
 function handleTouchMove(evt) {
@@ -239,6 +241,8 @@ function handleTouchMove(evt) {
     for (var i = 0; i < touches.length; i++) {
         handleMouseDown(touches[i]);
     }
+	console.log('spam');
+	return;
 } //end handleTouchMove
 function handleTouchEnd(evt) {
     evt.preventDefault();
@@ -247,6 +251,7 @@ function handleTouchEnd(evt) {
     for (var i = 0; i < touches.length; i++) {
         handleMouseDown(touches[i]);
     }
+	console.log('tend');
 } //handleTouchEnd
 
 
