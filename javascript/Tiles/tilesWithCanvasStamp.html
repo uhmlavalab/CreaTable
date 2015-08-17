@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8" />
+    <title>Tiles</title>
+    <!-- Important style. Remove this only under conditions when you understand why. -->
+    <style> 
+    html *
+    {
+       font-family: Arial;
+    }
+    </style>
+</head>
+<body>
+    <div id='topDiv'>
+    </div>
+    <div id='infoDiv'>
+    </div>
+</body>
+
+<script type="text/javascript" src="../lib/konva.js"></script>
+
+<script type="text/javascript">
+var topDiv = document.getElementById('topDiv');
+    topDiv.style.position   = 'absolute';
+    topDiv.style.top        = '0px';
+    topDiv.style.left       = '0px';
+    topDiv.style.width      = window.innerWidth;
+    topDiv.style.height     = window.innerHeight;
+
+var gridVars = {};
+    gridVars.lineWidth  = window.innerWidth * 0.01;
+    gridVars.spacing    = 100;
+
+var panelVars = {};
+    panelVars.width = gridVars.spacing * 7;
+    panelVars.heightDragBar = gridVars.spacing * 0.5;
+    panelVars.heightPanel = gridVars.spacing * 3;
+
+var vis = {};
+
+
+setupVis();
+setInterval( mainUpdater, 10 );
+
+
+
+
+
+
+function mainUpdater() {
+    movePanelWithDragBar();
+} //end mainUpdater
+
+
+function setupVis() {
+    vis.stage = new Konva.Stage({
+        width: window.innerWidth,
+        height: window.innerHeight,
+        container: 'topDiv'
+    });
+
+    vis.backLayer = new Konva.Layer();
+        vis.stage.add( vis.backLayer );
+    vis.gridLayer = new Konva.Layer();
+        vis.stage.add( vis.gridLayer );
+    vis.topLayer = new Konva.Layer();
+        vis.stage.add( vis.topLayer );
+    vis.panelLayer = new Konva.Layer();
+        vis.stage.add( vis.panelLayer );
+
+    drawGrid();
+    drawPanel();
+} //end setup vis
+
+function drawGrid() {
+    gridVars.allGridLines = [];
+    var gridLine;
+
+    for( var i = -gridVars.lineWidth/2; i < window.innerWidth * 1.2; /*nada*/ ) {
+        gridLine = new Konva.Rect({
+            x: i,
+            y: 0,
+            width: gridVars.lineWidth,
+            height: window.innerHeight,
+            fill: 'black'
+        });
+        i += gridVars.lineWidth;
+        i += gridVars.spacing;
+        gridVars.allGridLines.push(gridLine);
+        vis.gridLayer.add( gridLine );
+    }
+
+    for( var i = -gridVars.lineWidth/2; i < window.innerHeight * 1.2; /*nada*/ ) {
+        gridLine = new Konva.Rect({
+            x: 0,
+            y: i,
+            width: window.innerWidth,
+            height: gridVars.lineWidth,
+            fill: 'black'
+        });
+        i += gridVars.lineWidth;
+        i += gridVars.spacing;
+        gridVars.allGridLines.push(gridLine);
+        vis.gridLayer.add( gridLine );
+    }
+
+    vis.stage.draw();
+} //drawGrid
+
+function drawPanel() {
+    panelVars.dragVGroup = new Konva.Group();
+    panelVars.dragVGroup.draggable(true);
+    vis.panelLayer.add( panelVars.dragVGroup );
+    panelVars.dragVOutline = new Konva.Rect({
+        x: 0,
+        y: 0,
+        width: panelVars.width,
+        height: panelVars.heightDragBar,
+        fill: 'gray',
+        stroke: 'black',
+        strokeWidth: 2,
+    });
+    panelVars.dragVGroup.add(panelVars.dragVOutline);
+
+
+    panelVars.panelVGroup = new Konva.Group();
+    vis.panelLayer.add( panelVars.panelVGroup );
+    panelVars.panelVOutline = new Konva.Rect({
+        x: 0,
+        y: 0,
+        width: panelVars.width,
+        height: panelVars.heightPanel,
+        fill: 'gray',
+        stroke: 'black',
+        strokeWidth: 2,
+    });
+    panelVars.panelVGroup.y( panelVars.heightDragBar );
+    panelVars.panelVGroup.add(panelVars.panelVOutline);
+
+
+
+    vis.stage.draw();
+} //end drawPanel
+
+function movePanelWithDragBar() {
+
+    panelVars.panelVGroup.x( panelVars.dragVGroup.x() );
+    panelVars.panelVGroup.y( panelVars.dragVGroup.y() + panelVars.heightDragBar );
+
+}
+
+
+</script>
+
+
+
+</html>
