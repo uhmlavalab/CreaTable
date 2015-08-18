@@ -342,8 +342,8 @@ function createCube(color) {
     //console.log('click:' + color);
 
     var t = new Konva.Rect({
-        x: panelVars.panelVOutline.width() / 2 - gridVars.spacing/2,
-        y: panelVars.panelVOutline.height() /2 - gridVars.spacing/2,
+        x: panelVars.panelVGroup.x() + panelVars.panelVOutline.width() / 2 - gridVars.spacing/2,
+        y: panelVars.panelVGroup.y() + panelVars.panelVOutline.height() /2 - gridVars.spacing/2,
         width: gridVars.spacing,
         height: gridVars.spacing,
         fill: color,
@@ -364,8 +364,8 @@ function handleMouseUp(e) {
     var tw = panelVars.panelVOutline.width() / 3;
     var th = panelVars.panelVOutline.height() ;
 
-    var tx = panelVars.panelVOutline.x() + tw * 2;
-    var ty = panelVars.panelVOutline.y() ;
+    var tx = panelVars.panelVGroup.x() + tw * 2;
+    var ty = panelVars.panelVGroup.y() ;
 
 
     if(
