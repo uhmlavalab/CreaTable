@@ -39,6 +39,8 @@ var panelVars = {};
 
 var vis = {};
 
+var allCubes = [];
+
 
 setupVis();
 setInterval( mainUpdater, 10 );
@@ -50,6 +52,9 @@ setInterval( mainUpdater, 10 );
 
 function mainUpdater() {
     movePanelWithDragBar();
+
+
+    vis.stage.draw();
 } //end mainUpdater
 
 
@@ -71,6 +76,9 @@ function setupVis() {
 
     drawGrid();
     drawPanel();
+
+    document.addEventListener( 'mousedown', handleMouseDown);
+    document.addEventListener( 'mouseup', handleMouseUp);
 } //end setup vis
 
 function drawGrid() {
@@ -109,6 +117,8 @@ function drawGrid() {
 } //drawGrid
 
 function drawPanel() {
+
+    //make the drag bar
     panelVars.dragVGroup = new Konva.Group();
     panelVars.dragVGroup.draggable(true);
     vis.panelLayer.add( panelVars.dragVGroup );
@@ -124,6 +134,7 @@ function drawPanel() {
     panelVars.dragVGroup.add(panelVars.dragVOutline);
 
 
+    //make the panel contents.
     panelVars.panelVGroup = new Konva.Group();
     vis.panelLayer.add( panelVars.panelVGroup );
     panelVars.panelVOutline = new Konva.Rect({
@@ -137,6 +148,148 @@ function drawPanel() {
     });
     panelVars.panelVGroup.y( panelVars.heightDragBar );
     panelVars.panelVGroup.add(panelVars.panelVOutline);
+    panelVars.separator1 = new Konva.Rect({
+        x: panelVars.panelVOutline.width() / 3,
+        y: 0,
+        width: 1,
+        height: panelVars.panelVOutline.height(),
+        fill: 'gray',
+        stroke: 'black',
+        strokeWidth: 2,
+    });
+    panelVars.panelVGroup.add( panelVars.separator1 );
+    panelVars.separator2 = new Konva.Rect({
+        x: panelVars.panelVOutline.width() / 3 * 2,
+        y: 0,
+        width: 1,
+        height: panelVars.panelVOutline.height(),
+        fill: 'gray',
+        stroke: 'black',
+        strokeWidth: 2,
+    });
+    panelVars.panelVGroup.add( panelVars.separator2 );
+
+
+    //make a color pallet
+    panelVars.colorPalletVGroup = new Konva.Group();
+    panelVars.panelVGroup.add( panelVars.colorPalletVGroup );
+    panelVars.cpColor01 = new Konva.Rect({
+        x: panelVars.panelVOutline.width() /3 / 4,
+        y: panelVars.panelVOutline.height() / 5,
+        width: panelVars.panelVOutline.width() /3 / 4,
+        height: panelVars.panelVOutline.height() / 5,
+        fill: 'gray',
+        stroke: 'black',
+        strokeWidth: 2,
+    });
+    panelVars.colorPalletVGroup.add( panelVars.cpColor01 );
+    panelVars.cpColor02 = new Konva.Rect({
+        x: panelVars.panelVOutline.width() /3 / 4 * 2,
+        y: panelVars.panelVOutline.height() / 5,
+        width: panelVars.panelVOutline.width() /3 / 4,
+        height: panelVars.panelVOutline.height() / 5,
+        fill: 'black',
+        stroke: 'black',
+        strokeWidth: 2,
+    });
+    panelVars.colorPalletVGroup.add( panelVars.cpColor02 );
+    panelVars.cpColor03 = new Konva.Rect({
+        x: panelVars.panelVOutline.width() /3 / 4,
+        y: panelVars.panelVOutline.height() / 5 * 2,
+        width: panelVars.panelVOutline.width() /3 / 4,
+        height: panelVars.panelVOutline.height() / 5,
+        fill: 'green',
+        stroke: 'black',
+        strokeWidth: 2,
+    });
+    panelVars.colorPalletVGroup.add( panelVars.cpColor03 );
+    panelVars.cpColor04 = new Konva.Rect({
+        x: panelVars.panelVOutline.width() /3 / 4 * 2,
+        y: panelVars.panelVOutline.height() / 5 * 2,
+        width: panelVars.panelVOutline.width() /3 / 4,
+        height: panelVars.panelVOutline.height() / 5,
+        fill: 'red',
+        stroke: 'black',
+        strokeWidth: 2,
+    });
+    panelVars.colorPalletVGroup.add( panelVars.cpColor04 );
+    panelVars.cpColor05 = new Konva.Rect({
+        x: panelVars.panelVOutline.width() /3 / 4,
+        y: panelVars.panelVOutline.height() / 5 * 3,
+        width: panelVars.panelVOutline.width() /3 / 4,
+        height: panelVars.panelVOutline.height() / 5,
+        fill: 'yellow',
+        stroke: 'black',
+        strokeWidth: 2,
+    });
+    panelVars.colorPalletVGroup.add( panelVars.cpColor05 );
+    panelVars.cpColor06 = new Konva.Rect({
+        x: panelVars.panelVOutline.width() /3 / 4 * 2,
+        y: panelVars.panelVOutline.height() / 5 * 3,
+        width: panelVars.panelVOutline.width() /3 / 4,
+        height: panelVars.panelVOutline.height() / 5,
+        fill: 'blue',
+        stroke: 'black',
+        strokeWidth: 2,
+    });
+    panelVars.colorPalletVGroup.add( panelVars.cpColor06 );
+
+
+
+    //make the trashcan
+
+    panelVars.trashCanVGroup = new Konva.Group();
+    panelVars.panelVGroup.add( panelVars.trashCanVGroup );
+    panelVars.tcLid1 = new Konva.Rect({
+        x: panelVars.panelVOutline.width() * 2/3 + panelVars.panelVOutline.width() / 3 / 4,
+        y: panelVars.panelVOutline.height() / 4,
+        width: panelVars.panelVOutline.width() / 3 / 2,
+        height: panelVars.panelVOutline.height() / 10,
+        fill: 'red',
+        stroke: 'black',
+        strokeWidth: 2,
+    });
+    panelVars.trashCanVGroup.add(panelVars.tcLid1);
+    panelVars.tcBody = new Konva.Rect({
+        x: panelVars.panelVOutline.width() * 5/6 - panelVars.panelVOutline.width() / 3/2/4*3/2 ,
+        y: panelVars.panelVOutline.height() / 4 + panelVars.panelVOutline.height() / 10,
+        width: panelVars.panelVOutline.width() / 3 / 2 / 4 * 3,
+        height: panelVars.panelVOutline.height() / 3,
+        fill: 'red',
+        stroke: 'black',
+        strokeWidth: 2,
+    });
+    panelVars.trashCanVGroup.add(panelVars.tcBody);
+    panelVars.tcBodyLine1 = new Konva.Rect({
+        x: panelVars.tcBody.x() + panelVars.tcBody.width() / 4 ,
+        y: panelVars.tcBody.y() + panelVars.tcBody.height()/10 * 4,
+        width: 1,
+        height: panelVars.tcBody.height() / 10 * 6,
+        fill: 'gray',
+        stroke: 'black',
+        strokeWidth: 2,
+    });
+    panelVars.trashCanVGroup.add(panelVars.tcBodyLine1);
+    panelVars.tcBodyLine2 = new Konva.Rect({
+        x: panelVars.tcBody.x() + panelVars.tcBody.width() / 4 * 2 ,
+        y: panelVars.tcBody.y() + panelVars.tcBody.height()/10 * 2,
+        width: 1,
+        height: panelVars.tcBody.height() / 10 * 8,
+        fill: 'gray',
+        stroke: 'black',
+        strokeWidth: 2,
+    });
+    panelVars.trashCanVGroup.add(panelVars.tcBodyLine2);
+    panelVars.tcBodyLine3 = new Konva.Rect({
+        x: panelVars.tcBody.x() + panelVars.tcBody.width() / 4 * 3,
+        y: panelVars.tcBody.y() + panelVars.tcBody.height()/10 * 4,
+        width: 1,
+        height: panelVars.tcBody.height() / 10 * 6,
+        fill: 'gray',
+        stroke: 'black',
+        strokeWidth: 2,
+    });
+    panelVars.trashCanVGroup.add(panelVars.tcBodyLine3);
 
 
 
@@ -150,6 +303,96 @@ function movePanelWithDragBar() {
 
 }
 
+
+
+function handleMouseDown(e) {
+
+    //check if clicked on color pallet
+
+    if( checkIfPointInColorPallet( panelVars.cpColor01, e ) ) { createCube( panelVars.cpColor01.fill() ); }
+    if( checkIfPointInColorPallet( panelVars.cpColor02, e ) ) { createCube( panelVars.cpColor02.fill() ); }
+    if( checkIfPointInColorPallet( panelVars.cpColor03, e ) ) { createCube( panelVars.cpColor03.fill() ); }
+    if( checkIfPointInColorPallet( panelVars.cpColor04, e ) ) { createCube( panelVars.cpColor04.fill() ); }
+    if( checkIfPointInColorPallet( panelVars.cpColor05, e ) ) { createCube( panelVars.cpColor05.fill() ); }
+    if( checkIfPointInColorPallet( panelVars.cpColor06, e ) ) { createCube( panelVars.cpColor06.fill() ); }
+
+} //end
+
+function checkIfPointInColorPallet( color, e ) {
+    var px = e.pageX;
+    var py = e.pageY;
+
+    var cx = color.x() + panelVars.panelVGroup.x();
+    var cy = color.y() + panelVars.panelVGroup.y();
+    var cw = color.width();
+    var ch = color.height();
+
+    if(
+        px >= cx &&
+        px <= cx + cw &&
+        py >= cy &&
+        py <= cy + ch
+    ) {
+        return true;
+    }
+    return false;
+}
+
+function createCube(color) {
+    //console.log('click:' + color);
+
+    var t = new Konva.Rect({
+        x: panelVars.panelVOutline.width() / 2 - gridVars.spacing/2,
+        y: panelVars.panelVOutline.height() /2 - gridVars.spacing/2,
+        width: gridVars.spacing,
+        height: gridVars.spacing,
+        fill: color,
+        stroke: 'black',
+        strokeWidth: gridVars.lineWidth / 2,
+        draggable: true
+    });
+    allCubes.push(t);
+    vis.panelLayer.add( t );
+
+} //end createCube
+
+function handleMouseUp(e) {
+
+    var px = e.pageX;
+    var py = e.pageY;
+
+    var tw = panelVars.panelVOutline.width() / 3;
+    var th = panelVars.panelVOutline.height() ;
+
+    var tx = panelVars.panelVOutline.x() + tw * 2;
+    var ty = panelVars.panelVOutline.y() ;
+
+
+    if(
+        px >= tx &&
+        px <= tx + tw &&
+        py >= ty &&
+        py <= ty + th
+    ) {
+
+        for(var i = 0; i < allCubes.length; i++) {
+
+            px = allCubes[i].x();
+            py = allCubes[i].y();
+
+            if(
+                px >= tx &&
+                px <= tx + tw &&
+                py >= ty &&
+                py <= ty + th
+            ) {
+                allCubes[i].x(-100);
+                allCubes[i].y(-100);
+            }
+        }
+
+    }
+} //end handleMouseDown
 
 </script>
 
