@@ -79,6 +79,8 @@ function setupVis() {
 
     document.addEventListener( 'mousedown', handleMouseDown);
     document.addEventListener( 'mouseup', handleMouseUp);
+    document.addEventListener( 'touchstart', handleTouchStart);
+    document.addEventListener( 'touchend', handleTouchEnd);
 } //end setup vis
 
 function drawGrid() {
@@ -393,6 +395,29 @@ function handleMouseUp(e) {
 
     }
 } //end handleMouseDown
+
+function handleTouchStart( e ) {
+    e.preventDefault();
+    var touches = e.changedTouches;  
+
+    for (var i = 0; i < touches.length; i++) {
+        handleMouseDown(touches[i]);
+    }
+}
+
+function handleTouchEnd(e) {
+    e.preventDefault();
+    var touches = e.changedTouches;
+
+    for (var i = 0; i < touches.length; i++) {
+        var idx = ongoingTouchIndexById(touches[i].identifier);
+        if (idx >= 0) {
+            handleMouseUp( touches[i] );
+        } else {
+            log("can't figure out which touch to end");
+        }
+    }
+}
 
 </script>
 
