@@ -1,36 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="utf-8" />
-    <title>Tiles</title>
-    <!-- Important style. Remove this only under conditions when you understand why. -->
-    <style> 
-    html *
-    {
-       font-family: Arial;
-    }
-    </style>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/> 
-</head>
-<body>
-    <div id='topDiv'>
-	<canvas id="mainCanvas" width="800px" height="600px" style="border:3px solid #000000;">
-	</canvas>
-<br>
-<button onclick="setUp()">Initialize</button>
-<br>
-    </div>
-    <div id='infoDiv'>
-    </div>
-</body>
 
-<script type="text/javascript">
+var ctx; var mainC; var widthX; var heightY;
+var activeTouch = new Array(); var existingStars = new Array();
 
-var ctx; var mainC; var activeTouch = new Array();
+var stage = new Konva.Stage({container:'container', width: window.innerWidth, height:	window.innerHeight});
 
 //assign canvas to a variable, assign context to the canvas
 //add various event listeners for touch start, move, end, cancel, and leave
 function setUp(){
+	/*
 	mainC = document.getElementsByTagName("canvas")[0];
 	ctx = mainC.getContext("2d");
 	ctx.canvas.width = window.innerWidth;
@@ -40,8 +17,28 @@ function setUp(){
 	mainC.addEventListener("touchcancel", handleCancel, false);
 	mainC.addEventListener("touchleave", handleEnd, false);
 	mainC.addEventListener("touchmove", handleMove, false);
+	*/
+	stage = new Konva.Stage({container:'container', width: window.innerWidth, height:	window.innerHeight});
+	var layer = new Konva.Layer();
+	stage.add(layer);
 	console.log("Set Up Complete");
 }
+
+
+//going to begin to use Konva events to grab touch events
+//this is to grab a touch start anywhere on the layer
+
+stage.on('contentTouchstart', function() {
+	console.log("hit");
+	var layer = new Konva.Layer();
+	
+	var star = new Konva.Star({
+		x:window.innerWidth/2, y:window.innerHeight/2, numPoints: 5, innerRadius: 40, outerRadius: 70, fill: 'green', stroke: 'black', opacity: .8, strokeWidth: 3, shadowColor:'black', shadowBlur: 10, shadowOffset:{x:5,y:5}, shadowOpacity: 0.6, startScale: 0.5});
+
+	layer.add(star);
+
+	stage.add(layer);
+});
 
 //function for grabbing touch events
 function handleStart(evt){
@@ -55,26 +52,48 @@ function handleStart(evt){
 		activeTouch.push(copyTouch(touches[i]));
 		var color = colorForTouch(touches[i]);
 		//create a circle where the touch begins
-		ctx.beginPath();
-		ctx.arc(touches[i].pageX, touches[i].pageY, 8, 0, 2*Math.PI, false);
-		ctx.fillStyle=color;
-		ctx.fill();
+		//ctx.beginPath();
+		//ctx.arc(touches[i].pageX, touches[i].pageY, 8, 0, 2*Math.PI, false);
+		//ctx.fillStyle=color;
+		//ctx.fill();
 		console.log("Touch start: " + i + ".");
-}
+		//starPop(touches[i].pageX, touches[i].pageY);
+	}
+
+//this should create a interval of 100 milliseconds of a timer, should close out after reaching one full second with timer. use clearInterval(intervalVariable) interval variable must be a global
+//var timer = setInterval(function() {starMenu(touches[i].pageX, touches[i].pageY, color}, 100);
+
 }
 
+/*function starPop(){
+	console.log("hit");
+	var layer = new Konva.Layer();
+	
+	var star = new Konva.Star({
+		x:window.innerWidth/2, y:window.innerHeight/2, numPoints: 5, innerRadius: 40, outerRadius: 70, fill: 'green', stroke: 'black', opacity: .8, strokeWidth: 3, shadowColor:'black', shadowBlur: 10, shadowOffset:{x:5,y:5}, shadowOpacity: 0.6, startScale: 0.5});
+
+	layer.add(star);
+
+	stage.add(layer);
+
+}
+*/
+//ending a touch event
 function handleEnd(evt){
+
+
 }
 
 function handleCancel(evt){
 }
 
 function handleMove(evt){
-/*	evt.preventDefault();
+/*
+	evt.preventDefault();
 	var touches = evt.changedTouches;
 
 	for(var i=0; i<touches.length; i++){
-	var color = colorForTouch)touches[i]);
+	var color = colorForTouch(touches[i]);
 	var idx = ongoingTouchIndexById(touches[i].identifier);
 
 	if(idx >= 0){
@@ -82,10 +101,13 @@ function handleMove(evt){
 		ctx.beginPath();
 		log("ctx.moveTo("+ongoingTouches[idx].pageX + ", " +ongoingTouches[idx].pageY + ");");
 
+
+		ongoingTouches.splice(idx, 1, copyTouch(touches[1]));
+		console.log("spliced");
 }
-		ongoingTouches.splice(idx, 1, copyTouch(touches[1])):
 	else{
 		console.log("busted");
+}
 }
 */
 }
@@ -337,10 +359,7 @@ function findAndMoveInfoPane(e, tile) {
     }
 
 }
-*/
 
 </script>
-
-
-
 </html>
+*/
