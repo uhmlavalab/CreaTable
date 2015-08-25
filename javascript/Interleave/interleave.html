@@ -38,7 +38,7 @@ var combinedLayer = new Konva.Layer();
 var ltext = new Konva.Text({
   x: 0,
   y: 0,
-  text: 'OnlyLeft',
+  text: 'OnlyRight',
   fontSize: 200,
   fontFamily: 'Arial',
   fill: 'black'
@@ -46,7 +46,7 @@ var ltext = new Konva.Text({
 var rtext = new Konva.Text({
   x: 0,
   y: 0,
-  text: 'RightOnly',
+  text: 'LeftOnly',
   fontSize: 200,
   fontFamily: 'Arial',
   fill: 'black'
@@ -60,8 +60,10 @@ stage.add(rightLayer);
 stage.add(combinedLayer);
 
 
-//setInterval( updateVis, 10 );
-setTimeout( updateVis, 10 );
+setInterval( updateVis, 10 );
+//setTimeout( updateVis, 10 );
+
+document.addEventListener( 'keydown', handleKeyDown);
 
 
 function updateVis() {
@@ -93,6 +95,45 @@ function updateVis() {
     rightLayer.visible(false);
     //stage.draw();
 } //end
+
+
+
+function handleKeyDown(e) {
+
+    switch(e.keyCode) {
+        case 87: //w
+            rtext.y( rtext.y() - 5 );
+            break;
+        case 65: //a
+            rtext.x( rtext.x() - 5 );
+            break;
+        case 83: //s
+            rtext.y( rtext.y() + 5 );
+            break;
+        case 68: //d
+            rtext.x( rtext.x() + 5 );
+            break;
+
+
+
+
+        case 73: //i
+            ltext.y( ltext.y() - 5 );
+            break;
+        case 74: //j
+            ltext.x( ltext.x() - 5 );
+            break;
+        case 75: //k
+            ltext.y( ltext.y() + 5 );
+            break;
+        case 76: //l
+            ltext.x( ltext.x() + 5 );
+            break;
+
+    }
+} //end handleKeyDown
+
+
 
 
 </script>
