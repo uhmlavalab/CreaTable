@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8" />
+    <title>Popper</title>
+    <!-- Important style. Remove this only under conditions when you understand why. -->
+    <style> 
+    html *
+    {
+       font-family: Arial;
+    }
+    </style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/> 
+</head>
+<body>
+    <div id='topDiv'>
+    </div>
+    <div id='popDiv'>
+    </div>
+</body>
+
+<script type="text/javascript" src='../lib/konva.js'></script>
+
+<script type="text/javascript">
+
+var stage = new Konva.Stage({
+    width: window.innerWidth,
+    height: window.innerHeight,
+    container: 'topDiv'
+});
+
+
+var leftLayer = new Konva.Layer();
+var rightLayer = new Konva.Layer();
+var combinedLayer = new Konva.Layer();
+
+
+var ltext = new Konva.Text({
+  x: 0,
+  y: 0,
+  text: 'OnlyLeft',
+  fontSize: 200,
+  fontFamily: 'Arial',
+  fill: 'black'
+});
+var rtext = new Konva.Text({
+  x: 0,
+  y: 0,
+  text: 'RightOnly',
+  fontSize: 200,
+  fontFamily: 'Arial',
+  fill: 'black'
+});
+
+leftLayer.add(ltext);
+rightLayer.add(rtext);
+
+stage.add(leftLayer);
+stage.add(rightLayer);
+stage.add(combinedLayer);
+
+
+//setInterval( updateVis, 10 );
+setTimeout( updateVis, 10 );
+
+
+function updateVis() {
+    //need the layers visible and their updates drawn on the canvas
+    leftLayer.visible(true);
+    rightLayer.visible(true);
+    stage.draw();
+
+    var lc = leftLayer.getContext()._context;
+    var rc = rightLayer.getContext()._context;
+    var comb = combinedLayer.getContext()._context;
+    var lid, rid;
+
+    var vp = 0;
+
+    for(var i = 0 ; i < window.innerHeight; i++) {
+        lid = lc.getImageData( 0, i , window.innerWidth ,1 );
+        rid = rc.getImageData( 0, i , window.innerWidth ,1 );
+
+
+        comb.putImageData(lid, 0, vp);
+        vp++;
+        comb.putImageData(rid, 0, vp);
+        vp++;
+    }
+
+    //remove the different layers
+    leftLayer.visible(false);
+    rightLayer.visible(false);
+    //stage.draw();
+} //end
+
+
+</script>
+
+
+
+</html>
+
+
+
+
+
