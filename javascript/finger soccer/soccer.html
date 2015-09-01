@@ -30,10 +30,10 @@ canvas:active {
 
  <script type='text/javascript'>
 
- var screenWidth = 3840;
- var screenHeight = 2160;
-//var screenWidth = 1920;
-// var screenHeight = 1080;
+ //var screenWidth = 3840;
+ //var screenHeight = 2160;
+var screenWidth = 1920;
+var screenHeight = 1080;
 
 // Matter.js module aliases
 var Engine = Matter.Engine,
@@ -87,6 +87,15 @@ var offset = 10,
       }
     };
 
+//more options!
+var offset2 = 10,
+  wallOptions2 = {
+    isStatic: false,
+    render: {
+      visible: true
+    }
+  };
+
 // add some invisible some walls to the world
 World.add(engine.world, [
   Bodies.rectangle(screenWidth/2, 25/2, screenWidth, 25, wallOptions),
@@ -96,15 +105,23 @@ World.add(engine.world, [
   Bodies.rectangle(0, screenHeight/2+25, 25, screenHeight,  wallOptions),
   Bodies.rectangle(screenWidth, screenHeight/2+25, 25, screenHeight,  wallOptions),
 
-  Bodies.rectangle(screenWidth/2,screenHeight/2, 50 , 50, wallOptions),
-
   Bodies.rectangle(screenWidth/4,screenHeight/4, 50 , 50, wallOptions),
 
   Bodies.rectangle(screenWidth - screenWidth/4, screenHeight - screenHeight/4, 50 , 50 , wallOptions),
+
+
 ]);
 
+var obstacleA =   Bodies.rectangle(screenWidth/2,screenHeight/2, 50 , 50, wallOptions);
+Matter.Body.applyForce(obstacleA, 20, 20);
+
+World.add(engine.world, [obstacleA]);
+
+var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: false });
+
+
 // add all of the bodies to the world
-World.add(engine.world, [boxA]);
+World.add(engine.world, [boxA, ground]);
 //World.add(engine.world, [boxC]);
 
 //add a mouse-controlled constraint
