@@ -8,13 +8,13 @@ body {
 }
 
 canvas {
-  
+
   max-width: 100%;
   max-height: 100%;
 
 }
 
-canvas:active { 
+canvas:active {
   cursor: pointer;
   cursor: -webkit-grabbing;
 }
@@ -28,12 +28,12 @@ canvas:active {
 
 <body>
 
- <script type='text/javascript'>   
+ <script type='text/javascript'>
 
- //var screenWidth = 3840;
- //var screenHeight = 2160;
-  var screenWidth = 3840;
+ var screenWidth = 3840;
  var screenHeight = 2160;
+//var screenWidth = 1920;
+// var screenHeight = 1080;
 
 // Matter.js module aliases
 var Engine = Matter.Engine,
@@ -76,9 +76,11 @@ var boxA = Bodies.circle(420, 100, 150, {
       }});
 var boxB = Bodies.rectangle(screenWidth/2, screenHeight/2, 200, 200);
 
+var boxC = Bodies.polygon(screenWidth/2, screenHeight/2, 9, 200);
+
 // some settings
 var offset = 10,
-    wallOptions = { 
+    wallOptions = {
       isStatic: true,
       render: {
         visible: true
@@ -89,15 +91,21 @@ var offset = 10,
 World.add(engine.world, [
   Bodies.rectangle(screenWidth/2, 25/2, screenWidth, 25, wallOptions),
 
-  Bodies.rectangle(screenWidth/2, screenHeight-25, screenWidth, 25,  wallOptions), 
+  Bodies.rectangle(screenWidth/2, screenHeight-25, screenWidth, 25,  wallOptions),
 
   Bodies.rectangle(0, screenHeight/2+25, 25, screenHeight,  wallOptions),
   Bodies.rectangle(screenWidth, screenHeight/2+25, 25, screenHeight,  wallOptions),
 
+  Bodies.rectangle(screenWidth/2,screenHeight/2, 50 , 50, wallOptions),
+
+  Bodies.rectangle(screenWidth/4,screenHeight/4, 50 , 50, wallOptions),
+
+  Bodies.rectangle(screenWidth - screenWidth/4, screenHeight - screenHeight/4, 50 , 50 , wallOptions),
 ]);
 
 // add all of the bodies to the world
-World.add(engine.world, [boxA, boxB]);
+World.add(engine.world, [boxA]);
+//World.add(engine.world, [boxC]);
 
 //add a mouse-controlled constraint
 var mouseConstraint = MouseConstraint.create(engine);
@@ -110,11 +118,9 @@ engine.world.gravity.y = 0;
 
 // run the engine
 Engine.run(engine);
- 
+
 
 
 </script>
 
 </body>
-
-
