@@ -132,7 +132,7 @@ World.add(engine.world, mouseConstraint);
 
 // gravity init
 engine.world.gravity.x = 0;
-engine.world.gravity.y = 9.8;
+engine.world.gravity.y = 1;
 
 var bridge = Composites.stack(150, 500,9, 1, 10, 10, function(x, y) {
       return Bodies.rectangle(x, y, 50, 20, { collisionFilter: {  } });
