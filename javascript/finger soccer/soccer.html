@@ -30,10 +30,10 @@ canvas:active {
 
  <script type='text/javascript'>
 
- //var screenWidth = 3840;
- //var screenHeight = 2160;
-var screenWidth = 1920;
-var screenHeight = 1080;
+ var screenWidth = 3840;
+ var screenHeight = 2160;
+//var screenWidth = 1920;
+//var screenHeight = 1080;
 
 // Matter.js module aliases
 var Engine = Matter.Engine,
@@ -110,17 +110,14 @@ World.add(engine.world, [
   Bodies.rectangle(0, screenHeight/2+25, 25, screenHeight,  wallOptions),
   Bodies.rectangle(screenWidth, screenHeight/2+25, 25, screenHeight,  wallOptions),
 
-  Bodies.rectangle(screenWidth/4,screenHeight/4, 50 , 50, wallOptions),
+//  Bodies.rectangle(screenWidth/4,screenHeight/4, 50 , 50, wallOptions),
 
-  Bodies.rectangle(screenWidth - screenWidth/4, screenHeight - screenHeight/4, 50 , 50 , wallOptions),
-
+  //Bodies.rectangle(screenWidth - screenWidth/4, screenHeight - screenHeight/4, 50 , 50 , wallOptions),
+// Bodies.rectangle(screenWidth/2,screenHeight/2, 50 , 50, wallOptions)
 
 ]);
 
-var obstacleA =   Bodies.rectangle(screenWidth/2,screenHeight/2, 50 , 50, wallOptions);
-Matter.Body.applyForce(obstacleA, 20, 20);
 
-World.add(engine.world, [obstacleA]);
 
 var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: false });
 
@@ -135,9 +132,9 @@ World.add(engine.world, mouseConstraint);
 
 // gravity init
 engine.world.gravity.x = 0;
-engine.world.gravity.y = 0;
+engine.world.gravity.y = 9.8;
 
-var bridge = Composites.stack(150, 300, 9, 1, 10, 10, function(x, y) {
+var bridge = Composites.stack(150, 500, 200, 1, 10, 10, function(x, y) {
       return Bodies.rectangle(x, y, 50, 20, { collisionFilter: {  } });
   });
 
@@ -149,10 +146,10 @@ var bridge = Composites.stack(150, 300, 9, 1, 10, 10, function(x, y) {
 
   World.add(engine.world, [
       bridge,
-      Bodies.rectangle(80, 440, 120, 280, { isStatic: true }),
-      Bodies.rectangle(720, 440, 120, 280, { isStatic: true }),
-      Constraint.create({ pointA: { x: 140, y: 300 }, bodyB: bridge.bodies[0], pointB: { x: -25, y: 0 } }),
-      Constraint.create({ pointA: { x: 660, y: 300 }, bodyB: bridge.bodies[8], pointB: { x: 25, y: 0 } }),
+      Bodies.rectangle(0, screenHeight, 120, 280, { isStatic: true }),
+      Bodies.rectangle(screenWidth, screenHeight, 120, 280, { isStatic: true }),
+      Constraint.create({ pointA: { x: 0, y: screenHeight-500 }, bodyB: bridge.bodies[0], pointB: { x: -25, y: 0 } }),
+      Constraint.create({ pointA: { x: screenWidth, y: screenHeight-500 }, bodyB: bridge.bodies[8], pointB: { x: 25, y: 0 } }),
       stack
   ]);
 
