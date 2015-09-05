@@ -30,10 +30,10 @@ canvas:active {
 
  <script type='text/javascript'>
 
- var screenWidth = 3840;
- var screenHeight = 2160;
-//var screenWidth = 1920;
-//var screenHeight = 1080;
+ //var screenWidth = 3840;
+// var screenHeight = 2160;
+ var screenWidth = 1920;
+var screenHeight = 1080;
 
 // Matter.js module aliases
 var Engine = Matter.Engine,
@@ -67,18 +67,18 @@ engine.render.canvas.height = engine.render.options.height = screenHeight;
 engine.render.options.hasBounds = false;
 
 // create two boxes and a ground
-var boxA = Bodies.circle(420, 100, 150, {
-            density: 0.0005,
-      frictionAir: 0.0,
-      restitution: 0.3,
-      friction: 0.0,
-  render: {
-
-        sprite: {
-
-          texture: 'soccer.png'
-        }
-      }});
+// var boxA = Bodies.circle(420, 100, 150, {
+//             density: 0.0005,
+//       frictionAir: 0.0,
+//       restitution: 0.3,
+//       friction: 0.0,
+//   render: {
+//
+//         sprite: {
+//
+//           texture: 'soccer.png'
+//         }
+//       }});
 var boxB = Bodies.rectangle(screenWidth/2, screenHeight/2, 200, 200);
 
 var boxC = Bodies.polygon(screenWidth/2, screenHeight/2, 9, 200);
@@ -109,12 +109,6 @@ World.add(engine.world, [
 
   Bodies.rectangle(0, screenHeight/2+25, 25, screenHeight,  wallOptions),
   Bodies.rectangle(screenWidth, screenHeight/2+25, 25, screenHeight,  wallOptions),
-
-//  Bodies.rectangle(screenWidth/4,screenHeight/4, 50 , 50, wallOptions),
-
-  //Bodies.rectangle(screenWidth - screenWidth/4, screenHeight - screenHeight/4, 50 , 50 , wallOptions),
-// Bodies.rectangle(screenWidth/2,screenHeight/2, 50 , 50, wallOptions)
-
 ]);
 
 
@@ -123,7 +117,9 @@ var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: false });
 
 
 // add all of the bodies to the world
-World.add(engine.world, [boxA, ground]);
+//World.add(engine.world, [boxA, ground]);
+World.add(engine.world, [ground]);
+
 //World.add(engine.world, [boxC]);
 
 //add a mouse-controlled constraint
@@ -134,11 +130,11 @@ World.add(engine.world, mouseConstraint);
 engine.world.gravity.x = 0;
 engine.world.gravity.y = 1;
 
-var bridge = Composites.stack(150, 500,9, 1, 10, 10, function(x, y) {
-      return Bodies.rectangle(x, y, 50, 20, { collisionFilter: {  } });
+var bridge = Composites.stack(150, 500,25, 1, 10, 10, function(x, y) {
+      return Bodies.rectangle(x, y, 30, 10, { collisionFilter: {  } });
   });
 
-  Composites.chain(bridge, 0.5, 0, -0.5, 0, { stiffness: 1.5});
+  Composites.chain(bridge, 0.5, 0, -0.5, 0, { stiffness: 1.0});
 
   var stack = Composites.stack(200, 40, 6, 3, 0, 0, function(x, y) {
       return Bodies.polygon(x, y, Math.round(Common.random(1, 8)), Common.random(20, 40));
@@ -146,10 +142,8 @@ var bridge = Composites.stack(150, 500,9, 1, 10, 10, function(x, y) {
 
   World.add(engine.world, [
       bridge,
-      Bodies.rectangle(0, screenHeight, 120, 280, { isStatic: true }),
-      Bodies.rectangle(screenWidth, screenHeight, 120, 280, { isStatic: true }),
-      Constraint.create({ pointA: { x: 0, y: screenHeight-500 }, bodyB: bridge.bodies[0], pointB: { x: -25, y: 0 } }),
-      Constraint.create({ pointA: { x: screenWidth, y: screenHeight-500 }, bodyB: bridge.bodies[8], pointB: { x: 25, y: 0 } }),
+      Constraint.create({ pointA: { x: 0, y: screenHeight-screenHeight/4 }, bodyB: bridge.bodies[0], pointB: { x: -25, y: 0 } }),
+      Constraint.create({ pointA: { x: screenWidth, y: screenHeight-screenHeight/4 }, bodyB: bridge.bodies[24], pointB: { x: 25, y: 0 } }),
       stack
   ]);
 
