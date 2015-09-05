@@ -111,14 +111,11 @@ World.add(engine.world, [
   Bodies.rectangle(screenWidth, screenHeight/2+25, 25, screenHeight,  wallOptions),
 ]);
 
-
-
-var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: false });
-
+//var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: false });
 
 // add all of the bodies to the world
 //World.add(engine.world, [boxA, ground]);
-World.add(engine.world, [ground]);
+//World.add(engine.world, [ground]);
 
 //World.add(engine.world, [boxC]);
 
@@ -136,15 +133,26 @@ var bridge = Composites.stack(150, 500,25, 1, 10, 10, function(x, y) {
 
   Composites.chain(bridge, 0.5, 0, -0.5, 0, { stiffness: 1.0});
 
-  var stack = Composites.stack(200, 40, 6, 3, 0, 0, function(x, y) {
-      return Bodies.polygon(x, y, Math.round(Common.random(1, 8)), Common.random(20, 40));
+  var stack = Composites.stack(0, 0, 100, 4, 10, 10, function(x, y) {
+      return Bodies.circle(x, y, 20);
   });
 
+
+var pillers1 = Composites.stack(200, 100, 18, 5, 100, 200, function(x,y){
+  return Bodies.rectangle(x,y, 10, 30, {isStatic: true});
+})
+
+var pillers2 = Composites.stack(0, 200, 18, 5, 85, 200, function(x,y){
+  return Bodies.rectangle(x,y, 10, 30, {isStatic: true});
+})
+
   World.add(engine.world, [
-      bridge,
-      Constraint.create({ pointA: { x: 0, y: screenHeight-screenHeight/4 }, bodyB: bridge.bodies[0], pointB: { x: -25, y: 0 } }),
-      Constraint.create({ pointA: { x: screenWidth, y: screenHeight-screenHeight/4 }, bodyB: bridge.bodies[24], pointB: { x: 25, y: 0 } }),
-      stack
+      //bridge,
+      //Constraint.create({ pointA: { x: 0, y: screenHeight-screenHeight/4 }, bodyB: bridge.bodies[0], pointB: { x: -25, y: 0 } }),
+      //Constraint.create({ pointA: { x: screenWidth, y: screenHeight-screenHeight/4 }, bodyB: bridge.bodies[24], pointB: { x: 25, y: 0 } }),
+      stack,
+      pillers1,
+      pillers2,
   ]);
 
 
