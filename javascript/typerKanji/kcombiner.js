@@ -1,4 +1,58 @@
 
+
+
+
+
+
+
+
+function combineConverted() {
+	var ak = [];
+
+	for(var i = 0; i < k101.length; i++) { ak.push(k101[i]); }	
+	for(var i = 0; i < k102.length; i++) { ak.push(k102[i]); }	
+
+
+	for(var i = 0; i < ak.length; i++) { ak[i].difficulty = 10; }	
+
+	return ak;
+}
+
+
+
+//The code below this doesn't work because of encoding issues with kanji
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 All kanji will be part of an array.
 Objects will have format:
@@ -105,14 +159,8 @@ function tempPreload(akf) {
 }
 
 
-function combineConverted() {
-	var ak = [];
 
-	for(var i = 0; i < k101.length; i++) { ak.push(k101[i]); }	
-	for(var i = 0; i < k102.length; i++) { ak.push(k102[i]); }	
 
-	return ak;
-}
 
 
 

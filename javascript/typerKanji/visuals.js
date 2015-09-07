@@ -1,4 +1,4 @@
-var visuals = {};
+
 
 
 function setupTheCanvas() {
@@ -18,13 +18,14 @@ function setupTheCanvas() {
 	}
 
 
-	visuals.cTotalKan = visuals.lanes.length;
-	visuals.cKanSize = window.innerHeight / ( visuals.lanes.length + 5 ) ;
+	visuals.cTotalKanji = visuals.lanes.length;
+	visuals.cKanjiSize = window.innerHeight / ( visuals.lanes.length + 5 ) ;
+	visuals.cKanjiSpeed = window.innerWidth * 0.002;
 
-	visuals.allKan = [];
-	for(var i = 0; i < visuals.cTotalKan; i++) {
-		visuals.allKan.push( createKan() );
-		visuals.lanes[i].add( visuals.allKan[ visuals.allKan.length - 1 ].vGroup );
+	visuals.allKanji = [];
+	for(var i = 0; i < visuals.cTotalKanji; i++) {
+		visuals.allKanji.push( createKanji() );
+		visuals.lanes[i].add( visuals.allKanji[ visuals.allKanji.length - 1 ].vGroup );
 	}
 
 
@@ -32,7 +33,7 @@ function setupTheCanvas() {
 
 	// visuals.userInput = new Konva.Text({
 	// 	text: 'tempUserInput',
-	// 	fontSize: visuals.cKanSize ,
+	// 	fontSize: visuals.cKanjiSize ,
 	// 	fontFamily: 'Arial',
 	// 	fill: 'black'
 	// });
@@ -47,53 +48,66 @@ function setupTheCanvas() {
 } //end setupTheCanvas
 
 
-function createKan() {
+function createKanji() {
 
 	var obj = {};
 	obj.vGroup = new Konva.Group();
 
-	obj.vKan = new Konva.Text({
-		text: 'tempKan',
-		fontSize: visuals.cKanSize,
+	obj.vKanji = new Konva.Text({
+		text: 'tempKanji',
+		fontSize: visuals.cKanjiSize,
 		fontFamily: 'Arial',
 		fill: 'black'
 	});
-	obj.vKan.x( obj.vKan.getTextWidth()/-2 );
-	obj.vKan.y( obj.vKan.getTextHeight()/-2 );
-	obj.vGroup.add(obj.vKan);
+	obj.vKanji.x( obj.vKanji.getTextWidth()/-2 );
+	obj.vKanji.y( obj.vKanji.getTextHeight()/-2 );
+	obj.vGroup.add(obj.vKanji);
 
 	obj.vMeaning = new Konva.Text({
 		text: 'tempMeaning',
-		fontSize: visuals.cKanSize/4,
+		fontSize: visuals.cKanjiSize/4,
 		fontFamily: 'Arial',
 		fill: 'black'
 	});
-	obj.vMeaning.x( obj.vKan.getTextWidth()/3 * 2 );
+	obj.vMeaning.x( obj.vKanji.getTextWidth()/3 * 2 );
 	obj.vMeaning.y( obj.vMeaning.getTextHeight()/-2 );
 	obj.vGroup.add(obj.vMeaning);
 
 	obj.vRoman = new Konva.Text({
 		text: 'tempRoman',
-		fontSize: visuals.cKanSize/4,
+		fontSize: visuals.cKanjiSize/4,
 		fontFamily: 'Arial',
 		fill: 'black'
 	});
 	obj.vRoman.x( obj.vRoman.getTextWidth()/-2 );
-	obj.vRoman.y( obj.vKan.getTextHeight()/2 + obj.vRoman.getTextHeight() );
+	obj.vRoman.y( obj.vKanji.getTextHeight()/2 + obj.vRoman.getTextHeight() );
 	obj.vGroup.add(obj.vRoman);
 
 	obj.vYomimono = new Konva.Text({
 		text: 'tempYomimono',
-		fontSize: visuals.cKanSize/4,
+		fontSize: visuals.cKanjiSize/4,
 		fontFamily: 'Arial',
 		fill: 'black'
 	});
 	obj.vYomimono.x( obj.vYomimono.getTextWidth()/-2 );
-	obj.vYomimono.y( (obj.vKan.getTextHeight()/2 + obj.vRoman.getTextHeight() * 2) * -1 );
+	obj.vYomimono.y( (obj.vKanji.getTextHeight()/2 + obj.vRoman.getTextHeight() * 2) * -1 );
 	obj.vGroup.add(obj.vYomimono);
 
 	return obj;
-} //end createKan
+} //end createKanji
+
+function repositionKanjiVisuals( kanjiToReposition) {
+
+	kanjiToReposition.vKanji.x( 	kanjiToReposition.vKanji.getTextWidth()/-2 );
+	kanjiToReposition.vKanji.y( 	kanjiToReposition.vKanji.getTextHeight()/-2 );
+	kanjiToReposition.vMeaning.x( 	kanjiToReposition.vKanji.getTextWidth()/3 * 2 );
+	kanjiToReposition.vMeaning.y( 	kanjiToReposition.vMeaning.getTextHeight()/-2 );
+	kanjiToReposition.vRoman.x( 	kanjiToReposition.vRoman.getTextWidth()/-2 );
+	kanjiToReposition.vRoman.y( 	kanjiToReposition.vKanji.getTextHeight()/2 + kanjiToReposition.vRoman.getTextHeight() );
+	kanjiToReposition.vYomimono.x( 	kanjiToReposition.vYomimono.getTextWidth()/-2 );
+	kanjiToReposition.vYomimono.y( 	(kanjiToReposition.vKanji.getTextHeight()/2 + kanjiToReposition.vRoman.getTextHeight() * 2) * -1 )
+
+}
 
 
 

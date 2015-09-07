@@ -15,48 +15,51 @@
 <script type="text/javascript" src="../lib/konva.js"></script>
 <script type="text/javascript" src="kcombiner.js"></script>
 <script type="text/javascript" src="visuals.js"></script>
+<script type="text/javascript" src="mechanics.js"></script>
 <script type="text/javascript" src="101convert.js"></script>
 <script type="text/javascript" src="102convert.js"></script>
 
 <script type="text/javascript">
-var debug = true;
-var allKanji = combineConverted();
+var debug           = true;
+var allKanji        = combineConverted();
+var visuals         = {};
+var gvStartTime     = Date.now();
+var gvOngoingTimer  = 0;
+var kanjiRotation   = [];
+
+
 
 setupTheCanvas(); //creates a var called visuals
+setInputBoxSizing();
+resetAllKanji();
 
-
-var gvStartTime = Date.now();
-var gvOngoingTimer = 0;
-
-
-
-
-//create kanji input since it needs text conversion to work correctly.
-var idInput = document.getElementById('idInput');
-    idInput.size = 10;
-
-var infoDiv = document.getElementById('infoDiv');
-    infoDiv.style.position = 'absolute';
-    infoDiv.style.top = window.innerHeight/2 + 'px';
-    infoDiv.style.left = '10px';
-    infoDiv.style.backgroundColor = 'lightgray';
-
-
-
-
-setInterval(mainUpdater, 10);
 idInput.addEventListener('keydown', matchEnteredText);
+
+setInterval(mainUpdater, 5);
 
 
 
 function mainUpdater() {
 
+    moveActiveKanji();
 
-
+    visuals.stage.draw();
 
 } //end mainUpdater
 
 
+function setInputBoxSizing() {
+    //create kanji input since it needs text conversion to work correctly.
+    var idInput = document.getElementById('idInput');
+        idInput.size = 10;
+
+    var infoDiv = document.getElementById('infoDiv');
+        infoDiv.style.position = 'absolute';
+        infoDiv.style.top = window.innerHeight/2 + 'px';
+        infoDiv.style.left = '10px';
+        infoDiv.style.backgroundColor = 'lightgray';
+
+}
 
 
 function matchEnteredText(e) {
