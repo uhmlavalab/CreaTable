@@ -1,0 +1,9 @@
+
+find
+(.+)\t(.+)\t(.+)\t(.*)
+
+replace with
+{ kanji:"\1", yomimono:"\2", roman:"\3", meaning:"\4" },
+
+dont forget the var and the closing;
+

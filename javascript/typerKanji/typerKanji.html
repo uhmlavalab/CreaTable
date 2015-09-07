@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8" />
+    <title>TyperKanji</title>
+</head>
+<body>
+    <div id='topDiv'>
+    </div>
+    <div id='infoDiv'>
+        <input type='text' id ='idInput'>
+    </div>
+</body>
+
+<script type="text/javascript" src="../lib/konva.js"></script>
+<script type="text/javascript" src="kcombiner.js"></script>
+<script type="text/javascript" src="visuals.js"></script>
+<script type="text/javascript" src="101convert.js"></script>
+<script type="text/javascript" src="102convert.js"></script>
+
+<script type="text/javascript">
+var debug = true;
+var allKanji = combineConverted();
+
+setupTheCanvas(); //creates a var called visuals
+
+
+var gvStartTime = Date.now();
+var gvOngoingTimer = 0;
+
+
+
+
+//create kanji input since it needs text conversion to work correctly.
+var idInput = document.getElementById('idInput');
+    idInput.size = 10;
+
+var infoDiv = document.getElementById('infoDiv');
+    infoDiv.style.position = 'absolute';
+    infoDiv.style.top = window.innerHeight/2 + 'px';
+    infoDiv.style.left = '10px';
+    infoDiv.style.backgroundColor = 'lightgray';
+
+
+
+
+setInterval(mainUpdater, 10);
+idInput.addEventListener('keydown', matchEnteredText);
+
+
+
+function mainUpdater() {
+
+
+
+
+} //end mainUpdater
+
+
+
+
+function matchEnteredText(e) {
+    if(e.keyCode === 13){
+        if(debug) { console.log('Entered text:' + idInput.value); }
+        idInput.value = '';
+    }
+}
+
+
+</script>
+
+
+
+</html>

@@ -1,0 +1,15 @@
+日	にち	nichi	day   
+本	ほん	hon	book
+日本	にほん	nihon	Japan
+一日	ついたち	tsuitachi	Day1
+二日	ふつか	futsuka	Day2
+三日	みっか	mikka	Day3
+四日	よっか	yokka	Day4
+
+六日	むいか 	muika	Day6
+七日	なのか	nanoka 	Day7
+八日	ようか 	youka 	Day8
+九日	ここのか 	kokonoka	Day9
+
+十四日	じゅうよっか 	jyuuyokka	Day14
+二十日	はつか	hatsuka 	Day20
