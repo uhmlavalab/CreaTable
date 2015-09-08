@@ -43,7 +43,8 @@ var Engine = Matter.Engine,
     Composites = Matter.Composites,
     Common = Matter.Common,
     Constraint = Matter.Constraint,
-    MouseConstraint = Matter.MouseConstraint;
+    MouseConstraint = Matter.MouseConstraint,
+    Events = Matter.Events;
 
 // create a Matter.js engine
 
@@ -83,6 +84,8 @@ var boxB = Bodies.rectangle(screenWidth/2, screenHeight/2, 200, 200);
 
 var boxC = Bodies.polygon(screenWidth/2, screenHeight/2, 9, 200);
 
+
+
 // some settings
 var offset = 10,
     wallOptions = {
@@ -101,17 +104,20 @@ var offset2 = 10,
     }
   };
 
+
+var ground = Bodies.rectangle(screenWidth/2, screenHeight-25, screenWidth, 25,  wallOptions);
+
+
 // add some invisible some walls to the world
 World.add(engine.world, [
   Bodies.rectangle(screenWidth/2, 25/2, screenWidth, 25, wallOptions),
 
-  Bodies.rectangle(screenWidth/2, screenHeight-25, screenWidth, 25,  wallOptions),
 
   Bodies.rectangle(0, screenHeight/2+25, 25, screenHeight,  wallOptions),
   Bodies.rectangle(screenWidth, screenHeight/2+25, 25, screenHeight,  wallOptions),
-]);
+  ground,
 
-//var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: false });
+]);
 
 // add all of the bodies to the world
 //World.add(engine.world, [boxA, ground]);
@@ -133,10 +139,11 @@ var bridge = Composites.stack(150, 500,25, 1, 10, 10, function(x, y) {
 
   Composites.chain(bridge, 0.5, 0, -0.5, 0, { stiffness: 1.0});
 
-  var stack = Composites.stack(0, 0, 100, 4, 10, 10, function(x, y) {
+  var balls = Composites.stack(100, 100, 2, 1, 10, 10, function(x, y) {
       return Bodies.circle(x, y, 20);
   });
 
+var ballsBodies = balls.bodies;
 
 var pillers1 = Composites.stack(200, 100, 18, 5, 100, 200, function(x,y){
   return Bodies.rectangle(x,y, 10, 30, {isStatic: true});
@@ -150,10 +157,29 @@ var pillers2 = Composites.stack(0, 200, 18, 5, 85, 200, function(x,y){
       //bridge,
       //Constraint.create({ pointA: { x: 0, y: screenHeight-screenHeight/4 }, bodyB: bridge.bodies[0], pointB: { x: -25, y: 0 } }),
       //Constraint.create({ pointA: { x: screenWidth, y: screenHeight-screenHeight/4 }, bodyB: bridge.bodies[24], pointB: { x: 25, y: 0 } }),
-      stack,
+      balls,
       pillers1,
       pillers2,
   ]);
+
+
+
+
+           // an example of using collisionStart event on an engine
+           Events.on(engine, 'collisionStart', function(event) {
+               var pairs = event.pairs;
+
+               // change object colours to show those starting a collision
+               for (var i = 0; i < pairs.length; i++) {
+                   var pair = pairs[i];
+                   if((ballsBodies.indexOf(pair.bodyB) != -1) && (pair.bodyA.id == ground.id)){
+                        Body.translate(pair.bodyB,{x:0, y:-screenHeight+100});
+                   }
+               }
+
+
+           })
+
 
 
 // run the engine
