@@ -8,12 +8,12 @@ var k101 = [
 { kanji:"三日", yomimono:"みっか", roman:"mikka", meaning:"Day3" },
 { kanji:"四日", yomimono:"よっか", roman:"yokka", meaning:"Day4" },
 
-{ kanji:"六日", yomimono:"むいか ", roman:"muika", meaning:"Day6" },
+{ kanji:"六日", yomimono:"むいか", roman:"muika", meaning:"Day6" },
 { kanji:"七日", yomimono:"なのか", roman:"nanoka ", meaning:"Day7" },
-{ kanji:"八日", yomimono:"ようか ", roman:"youka ", meaning:"Day8" },
-{ kanji:"九日", yomimono:"ここのか ", roman:"kokonoka", meaning:"Day9" },
+{ kanji:"八日", yomimono:"ようか", roman:"youka ", meaning:"Day8" },
+{ kanji:"九日", yomimono:"ここのか", roman:"kokonoka", meaning:"Day9" },
 
-{ kanji:"十四日", yomimono:"じゅうよっか ", roman:"jyuuyokka", meaning:"Day14" },
+{ kanji:"十四日", yomimono:"じゅうよっか", roman:"jyuuyokka", meaning:"Day14" },
 { kanji:"二十日", yomimono:"はつか", roman:"hatsuka ", meaning:"Day20" }
 
 

@@ -51,7 +51,8 @@ function mainUpdater() {
 function setInputBoxSizing() {
     //create kanji input since it needs text conversion to work correctly.
     var idInput = document.getElementById('idInput');
-        idInput.size = 10;
+        idInput.size = 6;
+        idInput.style.fontSize = window.innerHeight * 0.1 + 'px';
 
     var infoDiv = document.getElementById('infoDiv');
         infoDiv.style.position = 'absolute';
@@ -65,7 +66,17 @@ function setInputBoxSizing() {
 function matchEnteredText(e) {
     if(e.keyCode === 13){
         if(debug) { console.log('Entered text:' + idInput.value); }
+
+        var val = idInput.value;
         idInput.value = '';
+
+        for(var i = 0; i < visuals.allKanji.length; i++) {
+            if( val === visuals.allKanji[i].vYomimono.text().trim() || val === visuals.allKanji[i].vKanji.text().trim() ) {
+                visuals.allKanji[i].originalData.difficulty--;
+                resetKanji( visuals.allKanji[i] );
+            }
+        }
+
     }
 }
 

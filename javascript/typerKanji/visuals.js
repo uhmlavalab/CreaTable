@@ -20,7 +20,7 @@ function setupTheCanvas() {
 
 	visuals.cTotalKanji = visuals.lanes.length;
 	visuals.cKanjiSize = window.innerHeight / ( visuals.lanes.length + 5 ) ;
-	visuals.cKanjiSpeed = window.innerWidth * 0.002;
+	visuals.cKanjiSpeed = window.innerWidth * 0.0015;
 
 	visuals.allKanji = [];
 	for(var i = 0; i < visuals.cTotalKanji; i++) {

@@ -1,6 +1,73 @@
 日	にち	nichi	day   
 本	ほん	hon	book
 日本	にほん	nihon	Japan
+山本	やまもと	yamamoto	Surname
+日本語	にほんご	nihongo	Japanese(language)
+大き	おおき ooki	big
+大学	だいがく	daigaku	University
+生　	せい sei	life
+学生	がくせい 	gakusei	student
+留学生	りゅうがくせい	ryuugakusei	foreign student
+先	せん 	sen 	previous
+先生	せんせい 	sensei 	teacher
+先月	せんげつ 	sengetsu 	last month
+先週	せんしゅう 	senshuu 	last week
+何ですか	なんですか 	nandesuka 	what is it?
+年	ねん 	nen 	year
+行く	いく　	iku 	to go
+旅行	りょこう 	ryokou 	travel
+来る	くる 	kuru 	To come
+来週	らいしゅう 	raishuu 	next week
+見る	みる 	miru 	to see/look at
+勉強	べんきょう 	benkyou 	study
+強い	つよい 	tsuyoi 	strong
+図書館	としょかん 	toshokan 	library
+大山	おおやま 	ooyama 	surname
+富士山	ふじさん 	fujisan 	Mt Fuji
+山田	やまだ 	yamada 	Surname
+田中	たなか 	tanaka 	Surname
+本田	ほんだ 	honda 	Surname
+日本人	にほんじん 	nihonjin 	Japanese Person
+友だち	ともだち 	tomodachi 	friend
+友子	ともこ 	tomoko 	Name
+食べる	たべる 	taberu 	to eat
+飲む	のむ 	nomu 	to drink
+中	なか 	naka 	inside, within
+中国語	ちゅうごくご	chuugokugo 	Chinese language
+中山	なかやま 	nakayama 	Surname
+百	ひゃく 	hyaku 	hundred
+千	せん 	sen 	thousand
+円	えん 	en 		yen
+買う	かう 	kau 	to buy
+車	くるま 	kuruma 	car
+電車　	でんしゃ 	densha 	train(electric)
+話す	はなす 	hanasu 	to talk
+電話	でんわ 	denwa 	telephone
+英語	えいご 	eigo 	English language
+英一	えいいち 	eiichi 	Name
+万	まん 	man 	ten thousand
+私	わたし 	watashi 	prnoun for self me I
+名前	なまえ 	namae 	name
+手	て 	te 	hand
+右手	みぎて 	migite 	right hand
+左手	ひだりて 	hidarite 	left hand
+紙	かみ 	kami 	paper
+手紙	てがみ 	tegami 	letter
+書く	かく 	kaku 	to write
+読む	よむ 	yomu 	to read
+読書	どくしょ 	dokusho 	reading(books)
+聞く	きく 	kiku 	to listen
+新聞	しんぶん 	shinbun 	newspaper
+東　	ひがし 	higashi 	east
+東京	とうきょう 	toukyou 	Tokyo
+京都	きょうと	kyouto 	Kyoto
+京子	きょうこ	kyouko 	Name
+
+
+
+
+
+
 一日	ついたち	tsuitachi	Day1
 二日	ふつか	futsuka	Day2
 三日	みっか	mikka	Day3
