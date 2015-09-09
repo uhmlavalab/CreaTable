@@ -3,9 +3,9 @@
 日本	にほん	nihon	Japan
 山本	やまもと	yamamoto	Surname
 日本語	にほんご	nihongo	Japanese(language)
-大き	おおき ooki	big
+大き　	おおき　	ooki	big
 大学	だいがく	daigaku	University
-生　	せい sei	life
+生　	せい　	sei　	life
 学生	がくせい 	gakusei	student
 留学生	りゅうがくせい	ryuugakusei	foreign student
 先	せん 	sen 	previous
@@ -62,21 +62,3 @@
 東京	とうきょう 	toukyou 	Tokyo
 京都	きょうと	kyouto 	Kyoto
 京子	きょうこ	kyouko 	Name
-
-
-
-
-
-
-一日	ついたち	tsuitachi	Day1
-二日	ふつか	futsuka	Day2
-三日	みっか	mikka	Day3
-四日	よっか	yokka	Day4
-
-六日	むいか 	muika	Day6
-七日	なのか	nanoka 	Day7
-八日	ようか 	youka 	Day8
-九日	ここのか 	kokonoka	Day9
-
-十四日	じゅうよっか 	jyuuyokka	Day14
-二十日	はつか	hatsuka 	Day20

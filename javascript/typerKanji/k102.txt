@@ -1,3 +1,158 @@
-先	せん	sen	previous
-生	せい	sei	life
+一日	ついたち	tsuitachi	Day1
+二日	ふつか	futsuka	Day2
+三日	みっか	mikka	Day3
+四日	よっか	yokka	Day4
+五日	いつか	itsuka	Day5
+六日	むいか 	muika	Day6
+七日	なのか	nanoka 	Day7
+八日	ようか 	youka 	Day8
+九日	ここのか 	kokonoka	Day9
+十日　	とおか 	tooka 	Day10
+十四日	じゅうよっか 	jyuuyokka	Day14
+二十日	はつか	hatsuka 	Day20
+日記	にっき	nikki	diary
+日本	にほん	nihon	Japan
+百	ひゃく	hyaku	hundred
+千	せん	sen	thousand
+万	まん	man	Ten thousand
+円	えん	en	Yen
+上	うえ	ue	above
+中	なか	naka	inside / within
+中国	ちゅうごく	cyuugoku	China
+一日中	いちにちじゅう	ichinichijyuu	throughout the day
+山下	やました	yamashita	Surname
+山中	やまなか	yamanaka	Surname
+中山	なかやま	nakayama	Surname
+山本	やまもと	yamamoto	Surname
+田中	たなか	tanaka	Surname
+山田	やまだ	yamada	Surname
+中田	なかだ	nakada	Surname
+上田	うえだ	ueda	Surname
+本田	ほんだ	honda	Surname
+成田	なりた	narita	Location
+大学	だいがく	daigaku	university
+大山	おおやま	ooyama	Surname
+大田	おおた	oota	Surname
+大阪	おおさか	oosaka	Location
+留学	りゅうがく	ryuugaku	foreign study(study abroad)
+学生	がくせい	gakusei	student
+大学生	だいがくせい	daigakusei	university student
+留学生	りゅうがくせい	ryuugakusei	foreign student
 先生	せんせい	sensei	teacher
+今	いま	ima	now
+今日	きょう	kyou	today
+今日中	きょうじゅう	kyoujyuu	throughout today
+年	ねん	nen	year
+今年	ことし	kotoshi	this year
+一年中	いちねんじゅう	ichinenjyuu	throughout the year
+年上	としうえ	toshiue	older
+年下	としした	toshishita	shita
+行く	いく	iku	to go
+旅行	りょこう	ryokou	travel(abroad)
+来る	くる	kuru	to come
+来年	らいねん	rainen	next year
+手	て	te	hand
+上手	じょうず	jyouzu	good at something(skilled)
+下手	へた	heta	bad at something(unskilled)
+紙	かみ	kami	paper
+手紙	てがみ	tegami	letter
+言う	いう	iu	to speak / say
+日本語	にほんご	nihongo	japanese language
+語学	ごがく	gogaku	study of languages
+言語学	げんごがく	gengogaku	linguistics
+中国語	ちゅうごくご	cyuugokugo	Chinese language
+英語	えいご	eigo	English language
+話す	はなす	hanasu	to speak / talk / converse
+勉強	べんきょう	benkyou	study
+友だち	ともだち	tomodachi	friend
+友人	ゆうじん	yuujin	friend
+子ども	こども	kodomo	child
+友子	ともこ	tomoko	Name
+英子	えいこ	eiko	name
+好きだ	すきだ	sukida	to like something
+大好き	だいすき	daisuki	to really like something
+私	わたし	watashi	pronoun for I self, me
+今週	こんしゅう	konshuu	this week
+先週	せんしゅう	senshuu	last week
+来週	らいしゅう	raishuu	next week
+週末	しゅうまつ	shuumatsu	weekend
+今週末	こんしゅうまつ	konshuumatsu	this weekend
+年末	ねんまつ	nenmatsu	end of the year
+専門	せんもん	senmon	specialty
+専攻	せんこう	senkou	major
+何時	なんじ	yomi	What time?
+子どもの時	こどものとき	yomi	When I was a kid/child
+日時	にちじ	yomi	date and time
+何分	なんふん	yomi	What minute of the hour / how many minutes
+分かる	わかる	yomi	To understand, comprehend, know.
+半	はん	yomi	half
+半日	はんにち	yomi	half a day
+半年	はんねん	yomi	half a year
+半分	はんぶん	yomi	half (in general)
+日曜日	にちようび	yomi	Sunday
+今月	こんげつ	yomi	This month
+先月	せんげつ	yomi	last month
+来月	らいげつ	yomi	next month
+何月	なんがつ	yomi	what month?
+月曜日	げつようび	yomi	Monday
+火曜日	かようび	yomi	Tuesday
+水曜日	すいようび	yomi	Wednesday
+水　	みず	yomi	water
+木	き	yomi	tree / wood
+木曜日	もくようび	yomi	Thursday
+お金	おかね	yomi	monday
+金曜日	きにょうび	yomi	Friday
+金田	かねだ	yomi	Name
+土曜日	どようび	yomi	Saturday
+本土	ほんど	yomi	Mainland
+前	まえ	yomi	in front of, before.
+前田	まえだ	yomi	Name
+手前	てまえ	yomi	this side of
+後ろ	うしろ	yomi	Behind, in back of
+後　	あと	yomi	following, after, succeding, sequel
+午前	ごぜん	yomi	A.M. (before noon)
+午後	ごご	yomi	P.M. (after noon)
+会う	あう	yomi	to meet
+会話	かいわ	yomi	conversation
+英会話	えいかいわ	yomi	English conversation
+勉強会	べんきょうかい	yomi	study meeting
+大会	たいかい	yomi	contest / tournament
+学会	がっかい	yomi	academic conference
+休む	やすむ	yomi	to rest, take time off, be absent, miss
+朝　	あさ	yomi	morning
+朝ごはん	あさごはん	yomi	breakfast
+今朝	けさ	yomi	this morning
+昼	ひる	yomi	noon
+昼休み	ひるやすみ	yomi	lunch break
+晩	ばん	yomi	evening
+今晩	こんばん	yomi	this evening
+晩ごはん	ばんごはん	yomi	dinner
+食べる	たべる	yomi	to eat
+食べ物	たべもの	yomi	food
+飲む	のむ	yomi	to drink
+飲み物	のみもの	yomi	drinks
+毎日	まいにち	yomi	every day
+毎週	まいしゅう	yomi	every week
+毎月	まいつき	yomi	every month
+毎年	まいとし	yomi	every year
+見る	みる	yomi	to see, look at, watch
+習う	ならう	yomi	to learn, take lessons
+学習	がくしゅう	yomi	learning, study
+練習	れんしゅう	yomi	practice, exercise
+復習	ふくしゅう	yomi	review
+学校	がっこう	yomi	school
+中学校	ちゅうがっこう	yomi	junior high school
+高校	こうこう	yomi	high school
+専門学校	せんもんがっこう	yomi	professional, trade school, trade school
+電話	でんわ	yomi	telephone, phone call
+車	くるま	yomi	car
+東　	ひがし	yomi	east
+東京	とうきょう	yomi	Tokyo
+京子	きょうこ	yomi	Name
+京都	きょうと	yomi	Kyoto
+東京大学	とうきょうだいがく	yomi	Tokyo University (specific place)
+
+
+
+
+

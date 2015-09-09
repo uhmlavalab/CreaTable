@@ -2,6 +2,33 @@
 
 
 
+
+function updateOptions() {
+
+
+	tkOptions.speed = parseInt(document.getElementById('oSpeedInput').value);
+
+	var i = 0;
+	var workingDiv = document.getElementById('tkoSet' + i);
+	while( workingDiv !== null) {
+		tkOptions.sets[i].use = workingDiv.checked;
+		i++;
+		workingDiv = document.getElementById('tkoSet' + i);
+	}
+	allKanji = combineConverted();
+	kanjiRotation = [];
+	resetAllKanji();
+
+	updateIntervalReference = setInterval(mainUpdater, 5);
+
+	console.log('Done with  options?');
+
+    workingDiv = document.getElementById('optionsDiv')
+    workingDiv.style.visibility = 'hidden';
+} //updateOptions
+
+
+
 /*
 This will just move all kanji to the left.
 But the main point is that on certain intervals more information will be revealed.
@@ -14,7 +41,7 @@ function moveActiveKanji() {
 	for(var i = 0; i < visuals.allKanji.length; i++) {
 		k = visuals.allKanji[i];
 
-		k.vGroup.x( k.vGroup.x() - visuals.cKanjiSpeed );
+		k.vGroup.x( k.vGroup.x() - tkOptions.speed );
 
 		//there are 3 additional parts: definition, english, reading. Realistically given the last two are almost equivalent.
 
@@ -111,7 +138,17 @@ function fillKanjiRotationWithNextSet() {
 
 
 
+function saveProgressToCookies() {
 
+	if(allKanji.length > 0) {
+		for(var i = 0; i < allKanji.length; i++) {
+			document.cookie = allKanji[i].kanji.trim()+"="+allKanji[i].difficulty;
+		}
+	}
+
+	alert(document.cookie);
+
+} //saveProgressToCookies
 
 
 

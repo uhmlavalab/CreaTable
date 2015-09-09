@@ -2,22 +2,55 @@
 
 
 
+function combineConverted(useOptions) {
 
-
-
-
-function combineConverted() {
 	var ak = [];
+	// for(var i = 0; i < k101.length; i++) { ak.push(k101[i]); }	
+	// for(var i = 0; i < k102.length; i++) { ak.push(k102[i]); }	
+	// for(var i = 0; i < ak.length; i++) { ak[i].difficulty = 10; }	
+	// return ak;
 
-	for(var i = 0; i < k101.length; i++) { ak.push(k101[i]); }	
-	for(var i = 0; i < k102.length; i++) { ak.push(k102[i]); }	
+	for(var i = 0; i < tkOptions.sets.length; i++) {
+		if(tkOptions.sets[i].use) {
+			for(var a = 0; a < tkOptions.sets[i].ref.length; a++) {
+				ak.push( tkOptions.sets[i].ref[a] );
 
+				
+				ak[ ak.length - 1 ].difficulty = checkIfKanjiHasCookie( ak[ ak.length - 1 ].kanji.trim() );
 
-	for(var i = 0; i < ak.length; i++) { ak[i].difficulty = 10; }	
+				if( ak[ ak.length - 1 ].difficulty === null) {
+					ak[ ak.length - 1 ].difficulty = 10;
+				}
+			}
+		}
+	}
 
 	return ak;
 }
 
+
+
+function checkIfKanjiHasCookie( kanjiToCheck ) {
+	var allCookies = document.cookie;
+	var cookieArray = allCookies.split(';');
+
+	var tempKanji;
+	var tempDifficulty;
+	var tempSplit;
+
+	for(var i = 0; i < cookieArray.length; i++) {
+		if( cookieArray[i].indexOf( kanjiToCheck+ "=" ) !== -1 ) {
+			tempSplit = cookieArray[i].split('=');
+			tempKanji = tempSplit[0].trim();
+			tempDifficulty = tempSplit[1].trim();
+			console.log('Found match for ' + kanjiToCheck + ', difficulty ' + tempDifficulty);
+			return parseInt(tempDifficulty);
+		}
+	}
+
+	return null;
+
+} //check if checkIfKanjiHasCookie
 
 
 //The code below this doesn't work because of encoding issues with kanji

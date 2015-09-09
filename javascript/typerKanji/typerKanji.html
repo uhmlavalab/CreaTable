@@ -10,6 +10,9 @@
     <div id='infoDiv'>
         <input type='text' id ='idInput'>
     </div>
+    <div id='optionsDiv'>
+        <input type='text' id ='idInput'>
+    </div>
 </body>
 
 <script type="text/javascript" src="../lib/konva.js"></script>
@@ -21,21 +24,26 @@
 
 <script type="text/javascript">
 var debug           = true;
-var allKanji        = combineConverted();
+var allKanji        = null; //combineConverted();
 var visuals         = {};
 var gvStartTime     = Date.now();
 var gvOngoingTimer  = 0;
 var kanjiRotation   = [];
 
+var tkOptions         = {};
+    tkOptions.sets    = [];
+    tkOptions.speed   = window.innerWidth * 0.0015;
 
+var updateIntervalReference = null;
 
 setupTheCanvas(); //creates a var called visuals
+
 setInputBoxSizing();
-resetAllKanji();
+setOptionsDivContents();
 
 idInput.addEventListener('keydown', matchEnteredText);
 
-setInterval(mainUpdater, 5);
+//setInterval(mainUpdater, 5);
 
 
 
@@ -62,9 +70,40 @@ function setInputBoxSizing() {
 
 }
 
+function setOptionsDivContents() {
+    var workingDiv = document.getElementById('optionsDiv');
+    workingDiv.style.position = 'absolute';
+    workingDiv.style.top = '0px';
+    workingDiv.style.left = '0px';
+    workingDiv.style.width = window.innerWidth + 'px';
+    workingDiv.style.height = window.innerHeight + 'px';
+    workingDiv.style.backgroundColor = 'lightblue';
+    
+    tkOptions.sets.push({ name: 'k101', ref: k101, use: true });
+    tkOptions.sets.push({ name: 'k102', ref: k102, use: true });
+
+    var textForOptions = "";
+    textForOptions += '<br><br><h1><input type="text" id="oSpeedInput" value="'+tkOptions.speed+'"> speed of kanji<br>';
+
+    for(var i = 0; i < tkOptions.sets.length; i++) {
+        textForOptions += '<input type="checkbox" id="tkoSet'+i+'" checked>'+ tkOptions.sets[i].name +'<br>';
+    }
+
+    textForOptions += '';
+    textForOptions += '<button type="button" onclick="updateOptions()"> Apply options </button> </h1>';
+
+    workingDiv.innerHTML = textForOptions;
+
+
+    textForOptions = '<button type="button" onclick="saveProgressToCookies()"> Save progress to cookies  </button><br>';
+    //textForOptions += '<button type="button" onclick="tcAlert()"> Alert cookies  </button><br>';
+    workingDiv.innerHTML += textForOptions;
+} //setOptionsDivContents
+
+
 
 function matchEnteredText(e) {
-    if(e.keyCode === 13){
+    if(e.keyCode === 13 && updateIntervalReference !== null){
         if(debug) { console.log('Entered text:' + idInput.value); }
 
         var val = idInput.value;
@@ -72,13 +111,22 @@ function matchEnteredText(e) {
 
         for(var i = 0; i < visuals.allKanji.length; i++) {
             if( val === visuals.allKanji[i].vYomimono.text().trim() || val === visuals.allKanji[i].vKanji.text().trim() ) {
-                visuals.allKanji[i].originalData.difficulty--;
+                if( visuals.allKanji[i].originalData.difficulty > 0 ) { visuals.allKanji[i].originalData.difficulty--; }
                 resetKanji( visuals.allKanji[i] );
             }
         }
 
     }
-}
+
+    if(e.keyCode === 27 && updateIntervalReference !== null) {
+        clearInterval( updateIntervalReference );
+        workingDiv = document.getElementById('optionsDiv');
+        workingDiv.style.visibility = 'visible';
+    }
+
+
+
+} //matchEnteredText
 
 
 </script>
