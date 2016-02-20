@@ -29,6 +29,8 @@ var stage = new Konva.Stage({
     container: 'topDiv'
 });
 
+var useColumnInterleave = true;
+
 
 var leftLayer = new Konva.Layer();
 var rightLayer = new Konva.Layer();
@@ -38,22 +40,53 @@ var combinedLayer = new Konva.Layer();
 var ltext = new Konva.Text({
   x: 0,
   y: 0,
-  text: 'OnlyRight',
-  fontSize: 200,
+  text: 'TheQuickBrownFox',
+  fontSize: 500,
   fontFamily: 'Arial',
   fill: 'black'
 });
 var rtext = new Konva.Text({
   x: 0,
   y: 0,
-  text: 'LeftOnly',
-  fontSize: 200,
+  text: 'TheQuickBrownFox',
+  fontSize: 500,
   fontFamily: 'Arial',
   fill: 'black'
 });
 
-leftLayer.add(ltext);
-rightLayer.add(rtext);
+//leftLayer.add(ltext);
+//rightLayer.add(rtext);
+
+var lki;
+var leftImg = new Image();
+leftImg.onload = function() {
+  lki = new Konva.Image({
+    x: 10,
+    y: 10,
+    image: leftImg
+  });
+  leftLayer.add(lki);
+};
+leftImg.src = 'left.png'
+//leftImg.src = '320.jpg'
+
+var rki;
+var rightImg = new Image();
+rightImg.onload = function() {
+    rki = new Konva.Image({
+    x: 10,
+    y: 10,
+    image: rightImg
+  });
+  rightLayer.add(rki);
+};
+rightImg.src = 'right.png'
+//rightImg.src = '320.jpg'
+
+
+
+
+
 
 stage.add(leftLayer);
 stage.add(rightLayer);
@@ -79,15 +112,26 @@ function updateVis() {
 
     var vp = 0;
 
-    for(var i = 0 ; i < window.innerHeight; i++) {
-        lid = lc.getImageData( 0, i , window.innerWidth ,1 );
-        rid = rc.getImageData( 0, i , window.innerWidth ,1 );
+    if(useColumnInterleave) {
+        for(var i = 0 ; i < window.innerWidth; i++) {
+            lid = lc.getImageData( i, 0 , 1, window.innerHeight);
+            rid = rc.getImageData( i, 0 , 1, window.innerHeight);
 
-
-        comb.putImageData(lid, 0, vp);
-        vp++;
-        comb.putImageData(rid, 0, vp);
-        vp++;
+            comb.putImageData(lid, vp, 0);
+            vp++;
+            comb.putImageData(rid, vp, 0);
+            vp++;
+        }
+    }
+    else {
+        for(var i = 0 ; i < window.innerHeight; i++) {
+            lid = lc.getImageData( 0, i , window.innerWidth ,1 );
+            rid = rc.getImageData( 0, i , window.innerWidth ,1 );
+            comb.putImageData(lid, 0, vp);
+            vp++;
+            comb.putImageData(rid, 0, vp);
+            vp++;
+        }
     }
 
     //remove the different layers
@@ -102,32 +146,36 @@ function handleKeyDown(e) {
 
     switch(e.keyCode) {
         case 87: //w
-            rtext.y( rtext.y() - 5 );
+            rtext.y( rtext.y() - 1 );
+            rki.y( rki.y() - 1 );
             break;
         case 65: //a
-            rtext.x( rtext.x() - 5 );
+            rtext.x( rtext.x() - 1 );
+            rki.x( rki.x() - 1 );
             break;
         case 83: //s
-            rtext.y( rtext.y() + 5 );
+            rtext.y( rtext.y() + 1 );
+            rki.y( rki.y() + 1 );
             break;
         case 68: //d
-            rtext.x( rtext.x() + 5 );
+            rtext.x( rtext.x() + 1 );
+            rki.x( rki.x() + 1 );
             break;
 
 
 
 
         case 73: //i
-            ltext.y( ltext.y() - 5 );
+            ltext.y( ltext.y() - 1 );
             break;
         case 74: //j
-            ltext.x( ltext.x() - 5 );
+            ltext.x( ltext.x() - 1 );
             break;
         case 75: //k
-            ltext.y( ltext.y() + 5 );
+            ltext.y( ltext.y() + 1 );
             break;
         case 76: //l
-            ltext.x( ltext.x() + 5 );
+            ltext.x( ltext.x() + 1 );
             break;
 
     }
